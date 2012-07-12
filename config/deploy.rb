@@ -1,16 +1,16 @@
 require 'bundler/capistrano'
 # require 'hoptoad_notifier/capistrano'
 
-set :application, "landing_page"
+set :application, "test1"
 set :rails_env, "production"
 
 set :branch, "master"
-set :repository,  "https://github.com/StevenKo/landing_page.git"
+set :repository,  "https://github.com/StevenKo/miniature-hipster.git"
 set :scm, "git"
 set :user, "apps" # 一個伺服器上的帳戶用來放你的應用程式，不需要有sudo權限，但是需要有權限可以讀取Git repository拿到原始碼
 set :port, "22"
  
-set :deploy_to, "/home/apps/learn_it"
+set :deploy_to, "/home/apps/test1"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
@@ -23,33 +23,33 @@ set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock co
 
 namespace :deploy do
   
-  namespace :assets do
+  # namespace :assets do
 
-    desc <<-DESC
-      Run the asset precompilation rake task. You can specify the full path \
-      to the rake executable by setting the rake variable. You can also \
-      specify additional environment variables to pass to rake via the \
-      asset_env variable. The defaults are:
+  #   desc <<-DESC
+  #     Run the asset precompilation rake task. You can specify the full path \
+  #     to the rake executable by setting the rake variable. You can also \
+  #     specify additional environment variables to pass to rake via the \
+  #     asset_env variable. The defaults are:
 
-        set :rake,      "rake"
-        set :rails_env, "production"
-        set :asset_env, "RAILS_GROUPS=assets"
-        set :assets_dependencies, fetch(:assets_dependencies) + %w(config/locales/js)
-    DESC
-    task :precompile, :roles => :web, :except => { :no_release => true } do
-      from = source.next_revision(current_revision)
-      if capture("cd #{latest_release} && #{source.local.log(from)} #{assets_dependencies.join ' '} | wc -l").to_i > 0
-        run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile}
-      else
-        logger.info "Skipping asset pre-compilation because there were no asset changes"
-      end
-    end
-  end
+  #       set :rake,      "rake"
+  #       set :rails_env, "production"
+  #       set :asset_env, "RAILS_GROUPS=assets"
+  #       set :assets_dependencies, fetch(:assets_dependencies) + %w(config/locales/js)
+  #   DESC
+  #   task :precompile, :roles => :web, :except => { :no_release => true } do
+  #     from = source.next_revision(current_revision)
+  #     if capture("cd #{latest_release} && #{source.local.log(from)} #{assets_dependencies.join ' '} | wc -l").to_i > 0
+  #       run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile}
+  #     else
+  #       logger.info "Skipping asset pre-compilation because there were no asset changes"
+  #     end
+  #   end
+  # end
 
-  task :copy_config_files, :roles => [:app] do
-    db_config = "#{shared_path}/config/database.yml.production"
-    run "cp #{db_config} #{release_path}/config/database.yml"
-  end
+  # task :copy_config_files, :roles => [:app] do
+  #   db_config = "#{shared_path}/config/database.yml.production"
+  #   run "cp #{db_config} #{release_path}/config/database.yml"
+  # end
   
   task :update_symlink do
     run "ln -s {shared_path}/public/system {current_path}/public/system"
