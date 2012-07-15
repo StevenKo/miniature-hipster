@@ -6,4 +6,7 @@ class LearnController < ApplicationController
 
   def index
   end
+
+  def backetball
+  end
 end
