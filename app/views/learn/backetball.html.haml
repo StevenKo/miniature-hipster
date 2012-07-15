@@ -11,6 +11,8 @@
           %a{:href => "#global"} 跳躍力訓練
         %li
           %a{:href => "#gridSystem"} 喬丹籃球教學
+        %li
+          %a{:href => "#gridSystem2"} Nike Signature Moves
 
   %section#global
     .page-header
@@ -74,3 +76,9 @@
         %param{:name => "allowFullScreen", :value => "true"}
           %param{:name => "allowScriptAccess", :value => "always"}
             %embed{:allowScriptAccess => "always", :allowfullscreen => "true", :height => "360", :src => "http://www.youtube.com/v/d_E0Kqbq0ek?version=3&feature=player_detailpage", :type => "application/x-shockwave-flash", :width => "640"}/
+  %section#gridSystem2
+    .page-header
+      %h1
+        Nike Signature Moves
+        %small Nike 拍了一系列很棒的教學教片
+      =link_to "Nike Signature Moves", "http://www.youtube.com/playlist?list=PLE7ADFD5DE0FC8F2D", :onclick => "recordOutboundLink(this, 'Outbound Links', 'Nike');return false;"  
